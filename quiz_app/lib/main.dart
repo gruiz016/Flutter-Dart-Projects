@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
 
+import 'questions.dart';
+
 void main() => runApp(QuizApp());
 
 class QuizApp extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
-    return QuizAppState();
+    return _QuizAppState();
   }
 }
 
-class QuizAppState extends State<QuizApp> {
-  var questionNumber = 0;
+class _QuizAppState extends State<QuizApp> {
+  var _questionNumber = 0;
 
-  void questionAnswer() {
+  void _questionAnswer() {
     setState(() {
-      questionNumber++;
+      _questionNumber++;
     });
   }
 
@@ -33,18 +34,18 @@ class QuizAppState extends State<QuizApp> {
         ),
         body: Column(
           children: <Widget>[
-            Text(questions[questionNumber]),
+            Questions(questions[_questionNumber]),
             RaisedButton(
               child: Text('Answer 1'),
-              onPressed: questionAnswer,
+              onPressed: _questionAnswer,
             ),
             RaisedButton(
               child: Text('Answer 2'),
-              onPressed: questionAnswer,
+              onPressed: _questionAnswer,
             ),
             RaisedButton(
               child: Text('Answer 3'),
-              onPressed: questionAnswer,
+              onPressed: _questionAnswer,
             ),
           ],
         ),

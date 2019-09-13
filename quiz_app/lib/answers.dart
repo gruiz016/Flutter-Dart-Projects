@@ -3,14 +3,16 @@ import 'package:flutter/material.dart';
 class Answer extends StatelessWidget {
   final Function answerSelector;
 
-  Answer(this.answerSelector);
+  final String answerText;
+
+  Answer(this.answerSelector, this.answerText);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
       child: RaisedButton(
-        child: Text('Answer 1'),
+        child: Text(answerText),
         onPressed: answerSelector,
         color: Colors.blue,
       ),

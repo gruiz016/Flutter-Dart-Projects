@@ -22,8 +22,18 @@ class _QuizAppState extends State<QuizApp> {
   }
 
   var questions = [
-    'Your favorite song is?',
-    'You are hanging with ur bffs and one of your crew\'s bf comes along. He starts talking like they\'re the only ones there.  You?'
+    {
+      'questionText': 'What\'s your favorite color?',
+      'answer': ['Black', 'Blue', 'Red', 'Green']
+    },
+    {
+      'questionText': 'What\'s your favorite animal?',
+      'answer': ['Cat', 'Dog', 'Cow', 'Lion']
+    },
+    {
+      'questionText': 'What is your favorite topping?',
+      'answer': ['Peperoni', 'Chicken', 'Bacon', 'Cheese']
+    },
   ];
 
   @override
@@ -35,10 +45,14 @@ class _QuizAppState extends State<QuizApp> {
         ),
         body: Column(
           children: <Widget>[
-            Questions(questions[_questionNumber]),
-            Answer(_questionAnswer),
-            Answer(_questionAnswer),
-            Answer(_questionAnswer),
+            Questions(
+              questions[_questionNumber]['questionText'],
+            ),
+            ...(questions[_questionNumber]['answer'] as List<String>).map(
+              (answer) {
+                return Answer(_questionAnswer, answer);
+              },
+            ).toList()
           ],
         ),
       ),

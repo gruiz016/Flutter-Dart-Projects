@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'questions.dart';
-import 'answers.dart';
+import 'quiz.dart';
+import 'result.dart';
 
 void main() => runApp(QuizApp());
 
@@ -13,26 +13,52 @@ class QuizApp extends StatefulWidget {
 }
 
 class _QuizAppState extends State<QuizApp> {
+  void _resetQuiz() {
+    setState(() {
+      _questionNumber = 0;
+      _totalScore = 0;
+    });
+  }
+
   var _questionNumber = 0;
 
-  void _questionAnswer() {
+  int _totalScore = 0;
+
+  void _questionAnswer(int score) {
+    _totalScore += score;
+
     setState(() {
       _questionNumber++;
     });
   }
 
-  var questions = [
+  static const _questions = [
     {
       'questionText': 'What\'s your favorite color?',
-      'answer': ['Black', 'Blue', 'Red', 'Green']
+      'answers': [
+        {'text': 'Black', 'score': 10},
+        {'text': 'Red', 'score': 5},
+        {'text': 'Green', 'score': 3},
+        {'text': 'White', 'score': 1},
+      ],
     },
     {
       'questionText': 'What\'s your favorite animal?',
-      'answer': ['Cat', 'Dog', 'Cow', 'Lion']
+      'answers': [
+        {'text': 'Rabbit', 'score': 3},
+        {'text': 'Snake', 'score': 11},
+        {'text': 'Elephant', 'score': 5},
+        {'text': 'Lion', 'score': 9},
+      ],
     },
     {
-      'questionText': 'What is your favorite topping?',
-      'answer': ['Peperoni', 'Chicken', 'Bacon', 'Cheese']
+      'questionText': 'Who\'s your favorite instructor?',
+      'answers': [
+        {'text': 'Gio', 'score': 1},
+        {'text': 'Taty', 'score': 1},
+        {'text': 'Luci', 'score': 1},
+        {'text': 'Gigi', 'score': 1},
+      ],
     },
   ];
 
@@ -43,18 +69,13 @@ class _QuizAppState extends State<QuizApp> {
         appBar: AppBar(
           title: Text('Quiz App'),
         ),
-        body: Column(
-          children: <Widget>[
-            Questions(
-              questions[_questionNumber]['questionText'],
-            ),
-            ...(questions[_questionNumber]['answer'] as List<String>).map(
-              (answer) {
-                return Answer(_questionAnswer, answer);
-              },
-            ).toList()
-          ],
-        ),
+        body: _questionNumber < _questions.length
+            ? Quiz(
+                questionNumber: _questionNumber,
+                questions: _questions,
+                questionAnswer: _questionAnswer,
+              )
+            : Result(_totalScore, _resetQuiz),
       ),
     );
   }

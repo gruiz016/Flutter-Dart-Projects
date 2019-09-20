@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class UserInput extends StatefulWidget {
   final Function addTx;
@@ -10,24 +11,46 @@ class UserInput extends StatefulWidget {
 }
 
 class _UserInputState extends State<UserInput> {
-  final textController = TextEditingController();
+  final _textController = TextEditingController();
+  final _amountController = TextEditingController();
+  DateTime dateSelected;
 
-  final amountController = TextEditingController();
+  void _submitData() {
+    if (_amountController.text.isEmpty) {
+      return;
+    }
 
-  void submitData() {
-    final textValue = textController.text;
-    final amountValue = double.parse(amountController.text);
+    final textValue = _textController.text;
+    final amountValue = double.parse(_amountController.text);
 
-    if (textValue.isEmpty || amountValue <= 0) {
+    if (textValue.isEmpty || amountValue <= 0 || dateSelected == null) {
       return;
     }
 
     widget.addTx(
       textValue,
       amountValue,
+      dateSelected,
     );
 
     Navigator.of(context).pop();
+  }
+
+  void _showDatePicker() {
+    showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2019),
+      lastDate: DateTime.now(),
+    ).then((datePicked) {
+      if (datePicked == null) {
+        return;
+      }
+
+      setState(() {
+        dateSelected = datePicked;
+      });
+    });
   }
 
   @override
@@ -41,20 +64,48 @@ class _UserInputState extends State<UserInput> {
           children: <Widget>[
             TextField(
               decoration: InputDecoration(labelText: 'Title'),
-              controller: textController,
-              onSubmitted: (_) => submitData(),
+              controller: _textController,
+              onSubmitted: (_) => _submitData(),
             ),
             TextField(
               decoration: InputDecoration(labelText: 'Amount'),
-              controller: amountController,
+              controller: _amountController,
               keyboardType: TextInputType.number,
-              onSubmitted: (_) => submitData(),
+              onSubmitted: (_) => _submitData(),
+            ),
+            Container(
+              height: 70,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Text(
+                    dateSelected == null
+                        ? 'No Date Choose'
+                        : DateFormat.yMd().format(dateSelected),
+                  ),
+                  Container(
+                    width: 145,
+                    child: FlatButton(
+                      color: Theme.of(context).accentColor,
+                      textColor: Theme.of(context).textTheme.button.color,
+                      child: Text(
+                        'Choose Date',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      onPressed: _showDatePicker,
+                    ),
+                  ),
+                ],
+              ),
             ),
             FlatButton(
-              child: Text('Add Transaction'),
-              textColor: Colors.white,
-              color: Colors.green,
-              onPressed: submitData,
+              child: Text(
+                'Add Transaction',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              textColor: Theme.of(context).textTheme.button.color,
+              color: Theme.of(context).accentColor,
+              onPressed: _submitData,
             )
           ],
         ),

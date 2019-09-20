@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter/cupertino.dart';
 
 class UserInput extends StatefulWidget {
   final Function addTx;
@@ -55,59 +56,65 @@ class _UserInputState extends State<UserInput> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: Container(
-        margin: EdgeInsets.all(10),
-        padding: EdgeInsets.all(5),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: <Widget>[
-            TextField(
-              decoration: InputDecoration(labelText: 'Title'),
-              controller: _textController,
-              onSubmitted: (_) => _submitData(),
-            ),
-            TextField(
-              decoration: InputDecoration(labelText: 'Amount'),
-              controller: _amountController,
-              keyboardType: TextInputType.number,
-              onSubmitted: (_) => _submitData(),
-            ),
-            Container(
-              height: 70,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text(
-                    dateSelected == null
-                        ? 'No Date Choose'
-                        : DateFormat.yMd().format(dateSelected),
-                  ),
-                  Container(
-                    width: 145,
-                    child: FlatButton(
-                      color: Theme.of(context).accentColor,
-                      textColor: Theme.of(context).textTheme.button.color,
-                      child: Text(
-                        'Choose Date',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      onPressed: _showDatePicker,
+    return SingleChildScrollView(
+      child: Card(
+        child: Container(
+          margin: EdgeInsets.all(10),
+          padding: EdgeInsets.only(
+              top: 10,
+              right: 10,
+              left: 10,
+              bottom: MediaQuery.of(context).viewInsets.bottom + 10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: <Widget>[
+              TextField(
+                decoration: InputDecoration(labelText: 'Title'),
+                controller: _textController,
+                onSubmitted: (_) => _submitData(),
+              ),
+              TextField(
+                decoration: InputDecoration(labelText: 'Amount'),
+                controller: _amountController,
+                keyboardType: TextInputType.number,
+                onSubmitted: (_) => _submitData(),
+              ),
+              Container(
+                height: 70,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text(
+                      dateSelected == null
+                          ? 'No Date Choose'
+                          : DateFormat.yMd().format(dateSelected),
                     ),
-                  ),
-                ],
+                    Container(
+                      width: 142,
+                      child: FlatButton(
+                        color: Theme.of(context).accentColor,
+                        textColor: Theme.of(context).textTheme.button.color,
+                        child: Text(
+                          'Choose Date',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        onPressed: _showDatePicker,
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            FlatButton(
-              child: Text(
-                'Add Transaction',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              textColor: Theme.of(context).textTheme.button.color,
-              color: Theme.of(context).accentColor,
-              onPressed: _submitData,
-            )
-          ],
+              FlatButton(
+                child: Text(
+                  'Add Transaction',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                textColor: Theme.of(context).textTheme.button.color,
+                color: Theme.of(context).accentColor,
+                onPressed: _submitData,
+              )
+            ],
+          ),
         ),
       ),
     );

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:receipe_app/screens/filters_screen.dart';
+import 'package:receipe_app/screens/tab_screen.dart';
 
+import 'screens/meal_detail_screen.dart';
 import 'screens/catogories_screen.dart';
 import 'screens/catrgory_meals_screen.dart';
 
@@ -30,8 +33,15 @@ class RecipeApp extends StatelessWidget {
             ),
       ),
       routes: {
-        '/': (context) => CategoriesScreen(),
+        '/': (context) => TabsScreen(),
         CategoryMeals.routeName: (context) => CategoryMeals(),
+        MealDetailsScreen.routeName: (context) => MealDetailsScreen(),
+        FiltersScreen.rounteName: (context) => FiltersScreen(),
+      },
+      onUnknownRoute: (settings) {
+        return MaterialPageRoute(
+          builder: (ctx) => TabsScreen(),
+        );
       },
     );
   }

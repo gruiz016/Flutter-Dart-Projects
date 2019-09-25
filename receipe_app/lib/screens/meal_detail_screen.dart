@@ -5,6 +5,11 @@ import 'package:receipe_app/dummy-data.dart';
 class MealDetailsScreen extends StatelessWidget {
   static const routeName = '/meal-detail';
 
+  final Function toggleFavorite;
+  final Function isFavorite;
+
+  MealDetailsScreen(this.toggleFavorite, this.isFavorite);
+
   Widget buildContainer(BuildContext context, String title) {
     return Container(
       margin: EdgeInsets.symmetric(
@@ -20,7 +25,7 @@ class MealDetailsScreen extends StatelessWidget {
   Widget buildItemContainer(BuildContext context, Widget child) {
     return Container(
       margin: EdgeInsets.all(10),
-      padding: EdgeInsets.all(10),
+      padding: EdgeInsets.all(20),
       decoration: BoxDecoration(
         color: Colors.white,
         border: Border.all(color: Colors.grey),
@@ -95,6 +100,14 @@ class MealDetailsScreen extends StatelessWidget {
             ],
           ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Theme.of(context).primaryColor,
+        child: Icon(
+          isFavorite(mealId) ? Icons.star : Icons.star_border,
+          size: 30,
+        ),
+        onPressed: () => toggleFavorite(mealId),
       ),
     );
   }

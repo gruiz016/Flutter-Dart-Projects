@@ -11,13 +11,14 @@ class MealItem extends StatelessWidget {
   final Complexity complexity;
   final Affordability affordability;
 
-  MealItem(
-      {@required this.affordability,
-      @required this.complexity,
-      @required this.title,
-      @required this.imageUrl,
-      @required this.duration,
-      @required this.id});
+  MealItem({
+    @required this.affordability,
+    @required this.complexity,
+    @required this.title,
+    @required this.imageUrl,
+    @required this.duration,
+    @required this.id,
+  });
 
   void _selectMeal(BuildContext context) {
     Navigator.of(context).pushNamed(

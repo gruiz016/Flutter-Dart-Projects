@@ -24,16 +24,13 @@ class ProductDetailScreen extends StatelessWidget {
             Container(
               height: 300,
               width: double.infinity,
-              decoration: BoxDecoration(
-                border: Border.all(
-                  width: 2,
-                  color: Theme.of(context).accentColor,
-                ),
-              ),
               child: Image.network(
                 loadedProduct.imageUrl,
                 fit: BoxFit.cover,
               ),
+            ),
+            SizedBox(
+              height: 20,
             ),
             Text(
               'Cost: \$${loadedProduct.price.toStringAsFixed(2)}',
@@ -41,6 +38,9 @@ class ProductDetailScreen extends StatelessWidget {
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
               ),
+            ),
+            SizedBox(
+              height: 50,
             ),
             Text(
               loadedProduct.description,

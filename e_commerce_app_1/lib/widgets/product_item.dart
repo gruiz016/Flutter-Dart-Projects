@@ -20,12 +20,6 @@ class ProductItem extends StatelessWidget {
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
       child: Container(
-        decoration: BoxDecoration(
-          border: Border.all(
-            width: 4,
-            color: Theme.of(context).primaryColor,
-          ),
-        ),
         child: GridTile(
           child: GestureDetector(
             onTap: () {

@@ -30,7 +30,7 @@ class _OrderWidgetState extends State<OrderWidget> {
             leading: CircleAvatar(
               child: Text('\$${widget.orders.amount.toStringAsFixed(0)}'),
             ),
-            title: Text(widget.orders.id.toString()),
+            title: Text('Order ID: ${widget.orders.id.toString()}'),
             subtitle: Text(
               DateFormat('MM/dd/yyyy hh:mm').format(widget.orders.date),
             ),

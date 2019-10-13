@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import '../screens/product_detail_screen.dart';
 import '../providers/product.dart';
 import '../providers/cart.dart';
+import '../providers/auth.dart';
 
 class ProductItem extends StatelessWidget {
   @override
@@ -14,6 +15,10 @@ class ProductItem extends StatelessWidget {
       listen: false,
     );
     final cart = Provider.of<Cart>(
+      context,
+      listen: false,
+    );
+    final authData = Provider.of<Auth>(
       context,
       listen: false,
     );
@@ -45,7 +50,10 @@ class ProductItem extends StatelessWidget {
                   product.isFavorite ? Icons.favorite : Icons.favorite_border,
                 ),
                 onPressed: () {
-                  product.toggleIsFavorite();
+                  product.toggleIsFavorite(
+                    authData.token,
+                    authData.userId,
+                  );
                 },
                 color: Theme.of(context).primaryColor,
               ),

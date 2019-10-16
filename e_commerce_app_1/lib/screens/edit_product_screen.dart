@@ -22,6 +22,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
     title: '',
     price: 0,
     description: '',
+    imageUrl: '',
   );
 
   var _isInit = true;
